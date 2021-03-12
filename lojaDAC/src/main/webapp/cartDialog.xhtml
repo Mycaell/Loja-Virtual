@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+<p:dialog id="idCartDialog" header="Carrinho" widgetVar="cartDialog"
+	modal="true" showEffect="fade" hideEffect="fade" height="480px"
+	resizable="false" draggable="true" appendTo="@(body)">
+
+	<h:form id="form-cart">
+
+		<p:growl id="messages-cart" showDetail="false" />
+
+		<p:panel id="panel-cart">
+
+			<p:dataTable id="table-products-in-cart" var="produto"
+				value="#{compraBean.produtosNoCarrinho}" rowKey="#{produto.id}"
+				paginator="true" rows="5"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="6,12,16">
+
+
+				<f:facet name="header">
+                    Produtos
+                </f:facet>
+
+				<p:column style="text-align: left" headerText="Produto">
+					<p:graphicImage name="img/Logo-png-livraria.png" />
+				</p:column>
+
+				<p:column style="text-align: left" headerText="Nome">
+					<h:outputText value="#{produto.nome}" />
+				</p:column>
+
+				<p:column style="text-align: left" headerText="Preço">
+					<h:outputText value="#{produto.preco}" />
+				</p:column>
+
+
+				<p:column style="text-align: left" headerText="Detalhes">
+					<p:link>detalhes</p:link>
+				</p:column>
+
+
+				<p:column style="text-align: left" headerText="Alterações">
+
+					<h:panelGrid id="grid-botoes-alteracoes" columns="3"
+						cellpadding="3">
+
+						<p:commandButton value="-"></p:commandButton>
+						<p:commandButton value="+"></p:commandButton>
+						<p:commandButton value="x"></p:commandButton>
+
+
+					</h:panelGrid>
+				</p:column>
+
+				<p:column style="text-align: left" headerText="Quantidade">
+					<h:outputText
+						value="QUANTIDADE (gerar o valor com base nos botões - e +)" />
+				</p:column>
+
+
+				<p:column style="text-align: left" headerText="Valor">
+					<h:outputText value="VALOR (gerar o valor com base na qtd)" />
+				</p:column>
+
+
+
+			</p:dataTable>
+
+		</p:panel>
+
+		<h:outputText
+			id="total-carrinho"
+			value="TOTAL: #{compraBean.valorProdutosNoCarrinho} 
+			
+			(gerar o valor com base na soma de todos os produtos levando em conta suas qtds)"
+			style="text-align: right" />
+
+
+		<p:fieldset>
+			<legend>Forma de pagamento</legend>
+
+
+
+			<h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5">
+				<p:selectOneRadio id="pagamentos"
+					value="#{compraBean.idFormaPagamento}" required="true">
+
+					<f:selectItems value="#{compraBean.formasDePagamento}"
+						var="pagamento" itemLabel="#{pagamento.tipoPagamento}"
+						itemValue="#{pagamento.id}" />
+				</p:selectOneRadio>
+			</h:panelGrid>
+
+
+
+		</p:fieldset>
+
+
+
+		<h:panelGrid id="grid-botoes-carrinho" columns="2" cellpadding="5">
+
+			<p:commandButton id="salvar" value="Salvar" 
+				action="#{compraBean.cadastra()}"
+				oncomplete="if (!args.validationFailed) {PF('cartDialog').hide()}"
+				update="@form :form-cart-details messages-cart"
+				icon="ui-icon-check" />
+
+			<p:commandButton id="cancelar" value="Cancelar" process="@this"
+				onclick="PF('cartDialog').hide()" icon="ui-icon-cancel">
+
+				<p:resetInput target="idCartDialog" />
+
+			</p:commandButton>
+			
+
+		</h:panelGrid>
+
+
+	</h:form>
+
+	<!-- quantidade (+ -)  -->
+
+
+	<!-- Total  -->
+
+
+	<!-- fieldSet forma de pagamento -->
+
+
+
+	<!-- finalizar - cancelar  -->
+
+
+
+
+
+</p:dialog>
+
+
+
+
+
+</html>

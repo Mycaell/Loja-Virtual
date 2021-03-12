@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="WEB-INF/template/myTemplate.xhtml">
+
+	<ui:define name="conteudo">
+
+		<p:panel>
+
+			<p:outputLabel for="busca" styleClass="ui-sr-only" value="Buscar por" />
+			<p:inputText id="busca" placeholder="Produto" />
+
+			<p:commandLink id="btAddUser" value="+ Novo Usuário"
+				action="#{usuarioBean.limpar()}"
+				oncomplete="PF('addUserDialog').show()" title="Adicionar usuário"
+				update=":idAddUserDialog">
+				<h:outputText styleClass="ui-icon-group-add" style="margin:0 auto;" />
+			</p:commandLink>
+
+
+		</p:panel>
+
+
+		<h:form id="form-users">
+			<p:dataGrid id="grid-users" var="usuario"
+				value="#{usuarioBean.usuarios}" columns="3" layout="grid" rows="12"
+				paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="6,12,16">
+
+
+
+				<f:facet name="header">
+           			 Usuários
+      			 </f:facet>
+
+				<p:panel id="panel-user" header="#{usuario.nome}"
+					style="text-align:center">
+					<h:panelGrid columns="1" style="width:100%">
+						<p:graphicImage name="img/Logo-png-livraria.png" />
+
+						<h:outputText value="#{usuario.papel.nome}" />
+					</h:panelGrid>
+
+					<h:panelGrid id="userActions" columns="4" style="width:100%">
+						<p:commandButton id="botao-editar" icon="ui-icon-edit"
+							title="Editar" value="Editar"
+							oncomplete="PF('addUserDialog').show()" process="@this"
+							update=":idAddUserDialog">
+
+							<f:setPropertyActionListener value="#{usuario}"
+								target="#{usuarioBean.usuario}" />
+						</p:commandButton>
+
+						<p:commandButton id="botao-excluir" icon="ui-icon-delete-forever"
+							title="Excluir" value="Excluir"
+							oncomplete="PF('deleteUserDialog').show()">
+
+							<f:setPropertyActionListener value="#{usuario}"
+								target="#{usuarioBean.usuario}" />
+						</p:commandButton>
+
+
+						<p:commandButton id="botao-detalhes" icon="ui-icon-view-module"
+							title="Detalhes" value="Detalhes"
+							oncomplete="PF('detailsUserDialog').show()" process="@this"
+							update=":idDetailsUserDialog">
+
+							<f:setPropertyActionListener value="#{usuario}"
+								target="#{usuarioBean.usuario}" />
+						</p:commandButton>
+
+						<p:commandButton id="botao-compras" icon="ui-icon-local-mall"
+							title="Compras realizadas" value="Compras">
+
+						</p:commandButton>
+
+					</h:panelGrid>
+
+				</p:panel>
+
+			</p:dataGrid>
+
+		</h:form>
+
+		<ui:include src="addUserDialog.xhtml"></ui:include>
+		<ui:include src="detailsUserDialog.xhtml"></ui:include>
+		<ui:include src="deleteUserDialog.xhtml"></ui:include>
+
+	</ui:define>
+</ui:composition>
+
+
+
+</html>

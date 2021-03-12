@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<p:dialog id="idAddUserDialog" header="Novo usuário" value="Novo usuário"
+	widgetVar="addUserDialog" modal="true" showEffect="fade"
+	hideEffect="fade" height="440px" resizable="false" draggable="true"
+	appendTo="@(body)">
+
+	<h:form id="form-add-user">
+
+		<p:growl id="messages" showDetail="false" />
+
+		<h:panelGrid id="grid-add-user" columns="1" cellpadding="5">
+
+			<p:fieldset id="fieldSetDadosPessoais">
+				<legend>Dados pessoais</legend>
+
+				<h:panelGrid id="grid-dados-pessoais" columns="4" cellpadding="5">
+
+
+					<p:outputLabel for="nome" value="Nome: " />
+					<p:inputText id="nome" value="#{usuarioBean.usuario.nome}"
+						required="true">
+						<f:validateLength minimum="3" maximum="30"></f:validateLength>
+					</p:inputText>
+
+
+					<p:outputLabel for="sobrenome" value="Sobrenome: " />
+					<p:inputText id="sobrenome"
+						value="#{usuarioBean.usuario.sobrenome}" required="true">
+						<f:validateLength minimum="3" maximum="30"></f:validateLength>
+					</p:inputText>
+
+
+					<p:outputLabel for="cpf" value="CPF: " />
+					<p:inputMask id="cpf" value="#{usuarioBean.usuario.CPF}"
+						mask="999.999.999-99" required="true" />
+
+					<p:outputLabel for="email" value="E-mail: " />
+					<p:inputText id="email" value="#{usuarioBean.usuario.email}"
+						required="true">
+						<f:validateLength minimum="4" maximum="150"></f:validateLength>
+						<f:validator validatorId="emailValidator"></f:validator>
+					</p:inputText>
+
+					<p:outputLabel for="telefone" value="Telefone: " />
+					<p:inputMask id="telefone" value="#{usuarioBean.usuario.telefone}"
+						mask="(99) 9999-9999" required="true" />
+
+					<p:outputLabel for="foto" value="Foto: " />
+					<p:inputText id="foto" value="#{usuarioBean.usuario.foto}"
+						placeholder="ISSO SERÁ SUBSTITUÍDO POR UM BOTÃO">
+					</p:inputText>
+
+					<p:outputLabel for="papel" value="Papel: " />
+					<h:selectOneMenu id="papel" value="#{usuarioBean.idPapel}">
+						<f:selectItems value="#{usuarioBean.papeisUsuario}" var="papel"
+							itemLabel="#{papel.nome}" itemValue="#{papel.id}">
+						</f:selectItems>
+					</h:selectOneMenu>
+
+
+
+					<p:outputLabel for="senha" value="Senha: " />
+					<h:inputSecret id="senha" value="#{usuarioBean.usuario.senha}"
+						required="true">
+						<f:validateLength minimum="4" maximum="150"></f:validateLength>
+					</h:inputSecret>
+
+
+				</h:panelGrid>
+			</p:fieldset>
+
+
+
+			<p:fieldset>
+				<legend>Dados de endereço</legend>
+
+				<h:panelGrid id="grid-dados-endereco" columns="4" cellpadding="5">
+
+					<p:outputLabel for="estados" value="Estado: " />
+					<h:selectOneMenu id="estados"
+						value="#{usuarioBean.usuario.endereco.estado}">
+						<f:selectItem itemLabel="AC" itemValue="AC(“Acre”)" />
+						<f:selectItem itemLabel="AL" itemValue="AL(“Alagoas”)" />
+						<f:selectItem itemLabel="AM" itemValue="AM(“Amazonas”)" />
+						<f:selectItem itemLabel="AP" itemValue="AP(“Amapá”)" />
+						<f:selectItem itemLabel="BA" itemValue="BA(“Bahia”)" />
+						<f:selectItem itemLabel="CE" itemValue="CE(“Ceará”)" />
+						<f:selectItem itemLabel="DF" itemValue="DF(“Distrito Federal”)" />
+						<f:selectItem itemLabel="ES" itemValue="ES(“Espirito Santo”)" />
+						<f:selectItem itemLabel="GO" itemValue="GO(“Goias”)" />
+						<f:selectItem itemLabel="MA" itemValue="MA(“Maranhão”)" />
+						<f:selectItem itemLabel="MG" itemValue="MG(“Minas Gerais”)" />
+						<f:selectItem itemLabel="MS" itemValue="MS(“Mato Grosso Sul”)" />
+						<f:selectItem itemLabel="MT" itemValue="MT(“Mato Grosso”)" />
+						<f:selectItem itemLabel="PA" itemValue="PA(“Pará”)" />
+						<f:selectItem itemLabel="PB" itemValue="PB(“Paraiba”)" />
+						<f:selectItem itemLabel="PE" itemValue="PE(“Pernanbuco”)" />
+						<f:selectItem itemLabel="PI" itemValue="PI(“Piaui”)" />
+						<f:selectItem itemLabel="PR" itemValue="PR(“Parana”)" />
+						<f:selectItem itemLabel="RJ" itemValue="RJ(“Rio de Janeiro”)" />
+						<f:selectItem itemLabel="RN" itemValue="RN(“Rio Grande do Norte”)" />
+						<f:selectItem itemLabel="RO" itemValue="RO(“Rondônia”)" />
+						<f:selectItem itemLabel="RR" itemValue="RR(“Roraima”)" />
+						<f:selectItem itemLabel="RS" itemValue="RS(“Rio Grande do Sul”)" />
+						<f:selectItem itemLabel="SC" itemValue="SC(“Santa Catarina”)" />
+						<f:selectItem itemLabel="SE" itemValue="SE(“Sergipe”)" />
+						<f:selectItem itemLabel="SP" itemValue="SP(“São Paulo”)" />
+						<f:selectItem itemLabel="TO" itemValue="TO(“Tocantins”)" />
+					</h:selectOneMenu>
+
+
+					<p:outputLabel for="cep" value="CEP: " />
+					<p:inputMask id="cep" value="#{usuarioBean.usuario.endereco.CEP}"
+						mask="99999-999" required="true" />
+
+					<p:outputLabel for="cidade" value="Cidade: " />
+					<p:inputText id="cidade"
+						value="#{usuarioBean.usuario.endereco.cidade}" required="true">
+						<f:validateLength minimum="4" maximum="150"></f:validateLength>
+					</p:inputText>
+
+					<p:outputLabel for="bairro" value="Bairro: " />
+					<p:inputText id="bairro"
+						value="#{usuarioBean.usuario.endereco.bairro}" required="true">
+						<f:validateLength minimum="4" maximum="150"></f:validateLength>
+					</p:inputText>
+
+					<p:outputLabel for="rua" value="Rua: " />
+					<p:inputText id="rua" value="#{usuarioBean.usuario.endereco.rua}"
+						required="true">
+						<f:validateLength minimum="4" maximum="150"></f:validateLength>
+					</p:inputText>
+
+					<p:outputLabel for="numero" value="Nº: " />
+					<p:inputText id="numero"
+						value="#{usuarioBean.usuario.endereco.num}">
+						<p:keyFilter mask="num" />
+					</p:inputText>
+
+					<p:outputLabel for="complemento" value="Complemento: " />
+					<p:inputText id="complemento"
+						value="#{usuarioBean.usuario.endereco.complemento}">
+
+					</p:inputText>
+
+				</h:panelGrid>
+			</p:fieldset>
+
+
+			<h:panelGrid id="grid-botoes" columns="2" cellpadding="5">
+
+				<p:commandButton id="salvar" value="Salvar"
+					action="#{usuarioBean.cadastra()}"
+					oncomplete="if (!args.validationFailed) {PF('addUserDialog').hide()}"
+					update="@form :form-users:grid-users messages" icon="ui-icon-check" />
+
+				<p:commandButton id="cancelar" value="Cancelar" process="@this"
+					onclick="PF('addUserDialog').hide()" icon="ui-icon-cancel">
+
+					<p:resetInput target="idAddUserDialog" />
+
+				</p:commandButton>
+
+			</h:panelGrid>
+
+		</h:panelGrid>
+	</h:form>
+</p:dialog>
+
+
+
+
+</html>

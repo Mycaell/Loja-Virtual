@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>#{title}</title>
+	<a href="#{request.contextPath}/"> 
+	<h:outputStylesheet name="style/estilo.css" />
+	<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+	</a>
+</h:head>
+
+<h:body>
+	
+	<p:layout fullPage="true">
+			
+
+		<p:layoutUnit id="layout-north" position="north" resizable="false"
+			size="20%" closable="false" collapsible="false" >
+			<header>
+				<ui:include src="/WEB-INF/template/includes/header.xhtml" />
+			</header>
+			
+			<ui:include src="/WEB-INF/template/includes/menu.xhtml" />
+		</p:layoutUnit>
+		
+
+
+
+		<p:layoutUnit id="layout-center" position="center" size="70%" resizable="true" closable="false"
+			collapsible="false">
+			<main>
+			
+			
+				<ui:insert name="conteudo"></ui:insert>
+			</main>
+		</p:layoutUnit>
+
+		<p:layoutUnit id="layout-south" header="Desenvolvido por mycaell"
+			position="south" size="10%"  resizable="false" closable="false"
+			collapsible="false">
+			<footer>
+				<ui:include src="/WEB-INF/template/includes/footer.xhtml"></ui:include>
+			</footer>
+		</p:layoutUnit>
+
+	</p:layout>
+
+</h:body>
+
+</html>

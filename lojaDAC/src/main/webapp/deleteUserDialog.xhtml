@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<p:dialog id="deleteUser" header="Deletar" modal="true"
+		widgetVar="deleteUserDialog" showEffect="fade" hideEffect="fade" 
+		height="35px" resizable="false" draggable="true" appendTo="@(body)">
+		
+		<p:growl id="messages" showDetail="false" />
+		
+		
+		<p:panelGrid columns="2" columnClasses="label,value">
+			<p:commandButton id="confirmDelete" value="OK" action="#{usuarioBean.deletar()}"
+				oncomplete="PF('deleteUserDialog').hide()"
+				update=":form-users:grid-users messages" icon="ui-icon-check" />
+				
+			<p:commandButton id="cancelDelete" value="Cancelar"
+				onclick="PF('deleteUserDialog').hide()" icon="ui-icon-cancel" />
+		</p:panelGrid>
+	</p:dialog>
+
+
+
+</html>

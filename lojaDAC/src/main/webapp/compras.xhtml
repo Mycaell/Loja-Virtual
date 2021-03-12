@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="WEB-INF/template/myTemplate.xhtml">
+	<ui:param name="title" value="Loja DAC - Compras" />
+
+	<ui:define name="conteudo">
+		
+		<p:panel>
+	
+			<p:outputLabel for="busca" styleClass="ui-sr-only" value="Buscar por" />
+			<p:inputText id="busca" placeholder="Produto" />
+
+		</p:panel>
+		
+
+
+		<h:form id="form-compras">
+			<p:dataGrid id="grid-compras" var="compra" 
+				value="#{compraBean.buscarCompras()}" columns="3" layout="grid" rows="12"
+				paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="6,12,16">
+
+				<f:facet name="header">
+           			 Compras
+      			 </f:facet>
+
+				<p:panel id="panel-compra" header="#{compra.id}"
+					style="text-align:center">
+					<h:panelGrid columns="1" style="width:100%">
+						<p:graphicImage name="img/Logo-png-livraria.png" />
+
+						<h:outputText value="#{compra.data}" />
+						<h:outputText value="#{compra.quantidadeItens}" />
+						<h:outputText value="#{compra.valorTotal}" />
+						
+						
+					</h:panelGrid>
+
+<!-- 					colocar um grid para os botoes (detalhes) -->
+
+
+				</p:panel>
+
+			</p:dataGrid>
+
+		</h:form>
+
+<!-- includes dos dialogs -->
+
+
+	</ui:define>
+</ui:composition>
+
+
+
+</html>

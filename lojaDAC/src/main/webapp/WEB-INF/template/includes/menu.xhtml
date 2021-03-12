@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+	
+	<header>
+
+		<h:form>
+			<p:growl id="messages" />
+
+			<p:menubar>
+					
+				<c:if test="#{loginBean.isLogado()}">
+					<p:menuitem value="Bem vindo(a) #{loginBean.getUsuarioLogado().nome}" title="#{loginBean.getUsuarioLogado().papel.nome}"></p:menuitem> 				
+				</c:if>	
+
+				<f:facet name="options">
+				
+					<p:menuButton value="Menu">
+
+						<c:choose>
+						
+							<c:when test="#{loginBean.isLogado()}">
+								<p:menuitem value="Perfil" update="messages" icon="pi pi-user" />
+								
+								
+								
+								<p:menuitem value="Carrinho" update="messages" icon="pi pi-shopping-cart" />
+
+								<p:menuitem value="Produtos" url="produtos.xhtml"  update="messages" icon="pi pi-save" />
+
+								<p:menuitem value="Usuários" url="usuarios.xhtml" update="messages" icon="pi pi-users" rendered="#{loginBean.isAdmin()}" />
+
+								<p:menuitem value="Categorias" update="messages" icon="pi pi-save" rendered="#{loginBean.isAdmin()}" />
+
+								<p:menuitem value="Papeis" update="messages" icon="pi pi-save" rendered="#{loginBean.isAdmin()}" />
+
+								<p:menuitem value="Formas de pagamento" update="messages" icon="pi pi-dollar" rendered="#{loginBean.isAdmin()}" />
+
+								<p:menuitem value="Minhas compras" url="compras.xhtml" action="#{compraBean.atualizaFlagCompras()}" actionListener="#{compraBean.atualizaFlagCompras()}" update="messages" icon="pi pi-save" />
+
+								<p:menuitem value="Controle de vendas"  url="compras.xhtml" update="messages" icon="pi pi-save" rendered="#{loginBean.isAdmin()}" />
+
+								<p:separator />
+
+								<p:menuitem value="Sair" action="#{loginBean.logout()}" update="messages" icon="pi pi-sign-out" />
+
+							</c:when>
+							
+							<c:otherwise>
+								
+								<p:menuitem value="Produtos" url="produtos.xhtml"  update="messages" icon="pi pi-save" />
+							
+								<p:menuitem value="Registrar-se" update="messages" icon="pi pi-save" />
+								
+								<p:menuitem value="Inicio"  url="index.xhtml" update="messages" icon="pi pi-home" />
+								
+							</c:otherwise>
+							
+						</c:choose>
+
+					</p:menuButton>
+
+				</f:facet>
+			</p:menubar>
+			
+			
+		</h:form>
+	</header>
+
+
+
+
+
+
+</ui:composition>

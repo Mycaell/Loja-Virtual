@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<p:dialog id="idDetailsProductDialog" header="Detalhes"
+	widgetVar="detailsProductDialog" modal="true" showEffect="fade"
+	hideEffect="fade" height="350px" resizable="false" draggable="true"
+	appendTo="@(body)">
+	<p:outputPanel id="panelProductDetail" style="text-align:center;">
+		<p:panelGrid columns="2" rendered="#{not empty produtoBean.produto}"
+			columnClasses="label,value">
+
+			<f:facet name="header">
+				<p:graphicImage name="img/Logo-png-livraria.png" />
+			</f:facet>
+
+			<h:outputText value="Nome" />
+			<h:outputText value="#{produtoBean.produto.nome}" />
+
+			<h:outputText value="Descrição" />
+			<h:outputText value="#{produtoBean.produto.descricao}" />
+
+			<h:outputText value="Preço" />
+			<h:outputText value="#{produtoBean.produto.preco}" />
+
+			<h:outputText value="Quantidade" />
+			<h:outputText value="#{produtoBean.produto.quantidade}" />
+
+			<h:outputText value="Data fabricação" />
+			<h:outputText value="#{produtoBean.produto.dataFabricacao}" />
+
+		</p:panelGrid>
+			
+			<p:commandButton id="botao-ok" value="Ok" 
+				onclick="PF('detailsProductDialog').hide()" icon="ui-icon-cancel"/>
+
+		
+	</p:outputPanel>
+</p:dialog>
+
+</html>

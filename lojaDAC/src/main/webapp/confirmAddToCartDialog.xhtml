@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<p:dialog id="idConfirmAddToCartDialog" header="Adicionar ao carrinho"
+	widgetVar="confirmAddToCartDialog" modal="true" showEffect="fade"
+	hideEffect="fade" height="100px" resizable="false" draggable="true"
+	appendTo="@(body)">
+	
+	<p:growl id="messages-add-to-cart" showDetail="false" />
+	
+	<p:outputPanel id="panelConfirmAdd" style="text-align:center;">
+		<p:panelGrid columns="2" rendered="#{not empty produtoBean.produto}"
+			columnClasses="label,value">
+
+			<f:facet name="header">
+				<p:outputLabel value="tem certeza que deseja adicionar o seguinte item ao carrinho?"></p:outputLabel>
+			</f:facet>
+
+			<h:outputText value="Nome" />
+			<h:outputText value="#{produtoBean.produto.nome}" />
+
+			<h:outputText value="Preço" />
+			<h:outputText value="#{produtoBean.produto.preco}" />
+
+		</p:panelGrid>
+
+		<p:commandButton id="botao-adicionar" value="Adicionar"
+			action="#{compraBean.adicionarProduto()}"
+			oncomplete="PF('addUserDialog').hide()"
+			update=":form-products :form-cart-details idConfirmAddToCartDialog messages-add-to-cart" icon="ui-icon-check" />
+
+
+		<p:commandButton id="botao-cancelar-add" value="Cancelar" 
+				onclick="PF('confirmAddToCartDialog').hide()" icon="ui-icon-cancel"/>
+
+		
+	</p:outputPanel>
+</p:dialog>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+

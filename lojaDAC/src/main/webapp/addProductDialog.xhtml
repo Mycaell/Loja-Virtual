@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<p:dialog id="idAddProductDialog" header="Novo produto"
+	widgetVar="addProductDialog" modal="true" showEffect="fade"
+	hideEffect="fade" height="350px" resizable="false" draggable="true"
+	appendTo="@(body)">
+
+	<h:form id="form-add-product">
+
+		<p:growl id="messages" showDetail="false" />
+
+		<h:panelGrid id="grid-add-product" columns="2" cellpadding="5">
+
+			<p:outputLabel for="nome" value="Nome: " />
+			<p:inputText id="nome" value="#{produtoBean.produto.nome}"
+				required="true">
+				<f:validateLength minimum="3" maximum="255"></f:validateLength>
+			</p:inputText>
+
+
+			<p:outputLabel for="descricao" value="Descrição: " />
+			<p:inputText id="descricao" value="#{produtoBean.produto.descricao}"
+				required="true">
+				<f:validateLength minimum="4" maximum="150"></f:validateLength>
+			</p:inputText>
+
+
+			<p:outputLabel for="preco" value="Preço: " />
+			<p:inputNumber id="preco" value="#{produtoBean.produto.preco}"
+				decimalSeparator="," thousandSeparator="." required="true" />
+
+			<p:outputLabel for="quantidade" value="Quantidade: " />
+			<p:inputText id="quantidade"
+				value="#{produtoBean.produto.quantidade}" required="true">
+				<f:validateLength minimum="1" maximum="150"></f:validateLength>
+				<p:keyFilter mask="num" />
+			</p:inputText>
+
+
+			<p:outputLabel for="categoria" value="Categoria: " />
+			<h:selectOneMenu id="categoria" value="#{produtoBean.idCategoria}">
+				<f:selectItems value="#{produtoBean.categorias}" var="categoria"
+					itemLabel="#{categoria.nome}" itemValue="#{categoria.id}">
+				</f:selectItems>
+			</h:selectOneMenu>
+
+
+			<p:outputLabel for="foto" value="Foto: " />
+			<p:inputText id="foto" value="#{produtoBean.produto.imgIlustrativa}"
+				placeholder="ISSO SERÁ SUBSTITUÍDO POR UM BOTÃO">
+			</p:inputText>
+
+			<p:outputLabel for="data" value="Data de fabricação: " />
+			<h:inputText id="data" label="data"
+				value="#{produtoBean.produto.dataFabricacao}" required="true">
+				<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+					timeZone="America/Recife" />
+			</h:inputText>
+
+
+
+		</h:panelGrid>
+
+
+		<h:panelGrid id="grid-botoes" columns="2" cellpadding="5">
+
+			<p:commandButton id="salvar" value="Salvar"
+				action="#{produtoBean.cadastra()}"
+				oncomplete="if (!args.validationFailed) {PF('addProductDialog').hide()}"
+				update="@form :form-products:grid-products messages"
+				icon="ui-icon-check" />
+
+			<p:commandButton id="cancelar" value="Cancelar" process="@this"
+				onclick="PF('addProductDialog').hide()" icon="ui-icon-cancel">
+
+				<p:resetInput target="idAddProductDialog" />
+
+			</p:commandButton>
+
+		</h:panelGrid>
+
+	</h:form>
+</p:dialog>
+
+
+
+
+</html>

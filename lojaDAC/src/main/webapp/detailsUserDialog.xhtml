@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<p:dialog id="idDetailsUserDialog" header="Detalhes"
+	widgetVar="detailsUserDialog" modal="true" showEffect="fade"
+	hideEffect="fade" height="510px" resizable="false" draggable="true"
+	appendTo="@(body)">
+	<p:outputPanel id="panelUserDetail" style="text-align:center;">
+		<p:panelGrid columns="2" rendered="#{not empty usuarioBean.usuario}"
+			columnClasses="label,value">
+
+			<f:facet name="header">
+				<p:graphicImage name="img/Logo-png-livraria.png" />
+			</f:facet>
+
+			<h:outputText value="Nome" />
+			<h:outputText value="#{usuarioBean.usuario.nome}" />
+
+			<h:outputText value="Sobrenome" />
+			<h:outputText value="#{usuarioBean.usuario.sobrenome}" />
+
+			<h:outputText value="CPF" />
+			<h:outputText value="#{usuarioBean.usuario.CPF}" />
+
+			<h:outputText value="E-mail" />
+			<h:outputText value="#{usuarioBean.usuario.email}" />
+
+			<h:outputText value="Telefone" />
+			<h:outputText value="#{usuarioBean.usuario.telefone}" />
+
+			<h:outputText value="CEP" />
+			<h:outputText value="#{usuarioBean.usuario.endereco.CEP}" />
+
+			<h:outputText value="Papel" />
+			<h:outputText value="#{usuarioBean.usuario.papel.nome}" />
+
+			<h:outputText value="Estado" />
+			<h:outputText value="#{usuarioBean.usuario.endereco.estado}" />
+
+			<h:outputText value="Cidade" />
+			<h:outputText value="#{usuarioBean.usuario.endereco.cidade}" />
+
+			<h:outputText value="Bairro" />
+			<h:outputText value="#{usuarioBean.usuario.endereco.bairro}" />
+
+			<h:outputText value="Rua" />
+			<h:outputText value="#{usuarioBean.usuario.endereco.rua}" />
+
+			<h:outputText value="Complemento" />
+			<h:outputText value="#{usuarioBean.usuario.endereco.complemento}" />
+
+		</p:panelGrid>
+			
+			<p:commandButton id="botao-ok" value="Ok" 
+				onclick="PF('detailsUserDialog').hide()" icon="ui-icon-cancel"/>
+		
+	</p:outputPanel>
+</p:dialog>
+
+</html>

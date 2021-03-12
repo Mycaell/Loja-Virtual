@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="WEB-INF/template/myTemplate.xhtml">
+	<ui:param name="title" value="Loja DAC - Produtos" />
+
+
+
+
+	<ui:define name="conteudo">
+
+		<p:panel>
+
+			<h:panelGrid columns="4">
+
+
+				<p:outputLabel for="busca" styleClass="ui-sr-only"
+					value="Buscar por" />
+				<p:inputText id="busca" placeholder="Produto" />
+
+
+
+				<c:if test="#{loginBean.isAdmin()}">
+
+					<p:commandLink value="+ Novo Produto"
+						action="#{produtoBean.limpar()}"
+						oncomplete="PF('addProductDialog').show()"
+						title="Adicionar produto" update=":idAddProductDialog">
+						<h:outputText styleClass="ui-icon-group-add"
+							style="margin:0 auto;" />
+					</p:commandLink>
+
+				</c:if>
+
+				<h:form id="form-cart-details">
+
+
+					<p:commandButton id="botao-carrinho"
+						icon="ui-icon-add-shopping-cart" title="Carrinho"
+						value="carrinho (IMG):" oncomplete="PF('cartDialog').show()"
+						process="@this" update=":idCartDialog ">
+
+					</p:commandButton>
+
+
+
+					<br />
+					<p:outputLabel
+						value="#{compraBean.quantidadeProdutosNoCarrinho} Iten(s)"></p:outputLabel>
+					<br />
+					<p:outputLabel
+						value="Total: R$ #{compraBean.valorProdutosNoCarrinho}"></p:outputLabel>
+				</h:form>
+
+			</h:panelGrid>
+
+
+		</p:panel>
+
+
+		<h:form id="form-products">
+			<p:dataGrid id="grid-products" var="produto"
+				value="#{produtoBean.produtos}" columns="3" layout="grid" rows="12"
+				paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="6,12,16">
+
+				<f:facet name="header">
+           			 Produtos
+      			 </f:facet>
+
+				<p:panel id="panel-product" header="#{produto.nome}"
+					style="text-align:center">
+					<h:panelGrid columns="1" style="width:100%">
+						<p:graphicImage name="img/Logo-png-livraria.png" />
+
+						<h:outputText value="#{produto.preco}" />
+					</h:panelGrid>
+
+					<c:if test="#{loginBean.isLogado()}">
+
+
+						<h:panelGrid id="productActions" columns="4" style="width:100%">
+
+							<p:commandButton id="botao-add-carrinho"
+								icon="ui-icon-add-shopping-cart" title="Adicionar ao carrinho"
+								value="+ carrinho"
+								oncomplete="PF('confirmAddToCartDialog').show()" process="@this"
+								update=":idConfirmAddToCartDialog">
+
+
+								<f:setPropertyActionListener value="#{produto}"
+									target="#{produtoBean.produto}" />
+
+								<f:setPropertyActionListener value="#{produto}"
+									target="#{compraBean.produto}" />
+							</p:commandButton>
+
+
+							<c:if test="#{loginBean.isAdmin()}">
+
+								<p:commandButton id="botao-editar" icon="ui-icon-edit"
+									title="Editar" value="Editar"
+									oncomplete="PF('addProductDialog').show()" process="@this"
+									update=":idAddProductDialog">
+
+									<f:setPropertyActionListener value="#{produto}"
+										target="#{produtoBean.produto}" />
+								</p:commandButton>
+
+
+								<p:commandButton id="botao-excluir"
+									icon="ui-icon-delete-forever" title="Excluir" value="Excluir"
+									oncomplete="PF('deleteProductDialog').show()">
+
+									<f:setPropertyActionListener value="#{produto}"
+										target="#{produtoBean.produto}" />
+								</p:commandButton>
+
+							</c:if>
+
+							<p:commandButton id="botao-detalhes" icon="ui-icon-view-module"
+								title="Detalhes" value="Detalhes"
+								oncomplete="PF('detailsProductDialog').show()" process="@this"
+								update=":idDetailsProductDialog">
+
+								<f:setPropertyActionListener value="#{produto}"
+									target="#{produtoBean.produto}" />
+							</p:commandButton>
+
+						</h:panelGrid>
+
+					</c:if>
+				</p:panel>
+
+			</p:dataGrid>
+
+		</h:form>
+
+		<ui:include src="addProductDialog.xhtml"></ui:include>
+		<ui:include src="detailsProductDialog.xhtml"></ui:include>
+		<ui:include src="deleteProductDialog.xhtml"></ui:include>
+		<ui:include src="confirmAddToCartDialog.xhtml"></ui:include>
+		<ui:include src="cartDialog.xhtml"></ui:include>
+
+
+
+	</ui:define>
+</ui:composition>
+
+
+
+</html>
